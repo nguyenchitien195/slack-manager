@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Demo Slack</title>
+    <script type="text/javascript" src="js/handler.js"></script>
+</head>
+
+<body>
+    <style type="text/css">
+    table,
+    th,
+    td {
+        border: 1px solid black;
+    }
+
+    table {
+        width: 100%;
+    }
+    </style>
+    <label>Token:</label>
+    <input type="text" name="token" />
+    <button id="get-list-files" onclick="getListFiles()">Get list file</button>
+    <br>
+    <table id="table-list-files">
+        <tr>
+            <th>STT</th>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Link</th>
+        </tr>
+    </table>
+</body>
+
+</html>
+<script type="text/javascript">
+var slack = new Slack('xoxp-231613720450-231749114341-344111744727-e379fd39599d9e4b604e9ddc3203dc0c');
+
+function getListFiles() {
+    let listFiles = slack.getListFiles(function(result) {
+        let obj = JSON.parse(result);
+        console.log(obj);
+        let table = document.getElementById('table-list-files');
+        for (i in obj.files) {
+            let tr = document.createElement('tr');
+            let file = obj.files[i];
+
+            let stt = document.createElement('th');
+            let contentStt = document.createTextNode(i);
+            stt.appendChild(contentStt);
+            tr.appendChild(stt);
+
+            let id = document.createElement('th');
+            let contentId = document.createTextNode(file.id);
+            id.appendChild(contentId);
+            tr.appendChild(id);
+
+            let name = document.createElement('th');
+            let contentName = document.createTextNode(file.name);
+            name.appendChild(contentName);
+            tr.appendChild(name);
+
+            let link = document.createElement('th');
+            let contentLink = document.createTextNode(file.permalink);
+            link.appendChild(contentLink);
+            tr.appendChild(link);
+
+            let deleteFile = document.createElement('th');
+            let btnDelete = document.createElement('button');
+            let contentDelete = document.createTextNode('Delete');
+            btnDelete.appendChild(contentDelete);
+            btnDelete.onclick = function(event) {
+                fncDeleteFile(file.id);
+            };
+            deleteFile.appendChild(btnDelete);
+            tr.appendChild(deleteFile);
+
+            table.appendChild(tr);
+        }
+    });
+
+    // textarea.value = 'dâda';
+    // textarea.value = slack.getListFiles();
+}
+
+function fncDeleteFile(fileID) {
+    slack.deleteFile(fileID, function(result) {
+        console.log(result);
+    });
+}
+</script>
