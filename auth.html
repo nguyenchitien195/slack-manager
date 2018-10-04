@@ -19,7 +19,7 @@
         request.onreadystatechange = function() {
             if (request.readyState == 4 && request.status == 200) {
                 localStorage.setItem('auth', request.responseText);
-                location.href = 'slack-manager/index.html';
+                location.href = '/slack-manager/index.html';
             }
         };
     }
