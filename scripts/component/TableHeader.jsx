@@ -6,7 +6,8 @@ const rows = [
     { id: 'filetype', numeric: false, disablePadding: true, label: 'File Type' },
     { id: 'size', numeric: true, disablePadding: true, label: 'Size' },
     { id: 'created', numeric: true, disablePadding: false, label: 'Date' },
-    { id: 'user', numeric: true, disablePadding: false, label: 'User' }
+    { id: 'user', numeric: true, disablePadding: false, label: 'User' },
+    { id: 'channel_name', numeric: false, disablePadding: false, label: 'Channel' }
   ];
 
 class TableHeader extends React.Component{
@@ -34,6 +35,7 @@ class TableHeader extends React.Component{
                                 numeric={row.numeric}
                                 padding={row.disablePadding ? 'none' : 'default'}
                                 sortDirection={orderBy === row.id ? order : false}
+                                style={{textAlign: 'left'}}
                             >
                                 <Tooltip
                                     title="Sort"

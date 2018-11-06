@@ -12,9 +12,12 @@ class TableToolbar extends React.Component {
     }
 
     deleteFiles() {
-        this.props.selected.map(item => {
-            this.deleteFile(item);
-        });
+        if (confirm('Do you want to delete?')) {
+            this.props.selected.map(item => {
+                this.deleteFile(item);
+            });
+            alert('Delete success');
+        }
     }
 
     deleteFile(fileID) {
@@ -50,7 +53,7 @@ class TableToolbar extends React.Component {
                     [classes.highlight]: numSelected > 0,
                 })}
             >
-                <div className={classes.title}>
+                <div className={classes.title} style={{'width': '800px'}}>
                     {numSelected > 0 ? (
                         <div>
                             <IconButton aria-label='Clear'>
@@ -65,7 +68,11 @@ class TableToolbar extends React.Component {
                             <Typography variant="title" id="tableTitle">
                                 Filter files
                             </Typography>
-                            <TableFilter/>
+                            <TableFilter
+                                filterByMember={members => this.props.filterByMember(members)}
+                                filterByChannel={channels => this.props.filterByChannel(channels)}
+                                filterByName={name => this.props.filterByName(name)}
+                            />
                         </div>
                         )}
                 </div>
@@ -115,7 +122,7 @@ const toolbarStyles = theme => ({
     selected: {
         display: 'inline',
     }
-  });
+});
 
   
 export default withStyles(toolbarStyles)(TableToolbar);
