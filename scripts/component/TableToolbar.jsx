@@ -32,9 +32,10 @@ class TableToolbar extends React.Component {
             .then(
                 (result) => {
                     if (result.ok) {
-                        let updateListFiles = this.props.files.filter(item => item.id !== fileID);
+                        let updateListFiles = this.props.listFiles.filter(item => item.id !== fileID);
+                        let updateFilterFiles = this.props.filterFiles.filter(item => item.id !== fileID);
                         let updateSelected = this.props.selected.filter(item => item !== fileID);
-                        this.props.updateListFiles(updateListFiles, updateSelected);
+                        this.props.updateListFiles(updateListFiles, updateFilterFiles, updateSelected);
                     } else {
                         alert(result.error);
                     }

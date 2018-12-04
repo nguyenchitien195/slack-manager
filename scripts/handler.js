@@ -202,8 +202,12 @@ class TableData extends React.Component {
                         selected={selected}
                         token={this.props.token}
                         filterFiles={this.state.filterFiles}
-                        listFiles={this.state.filterFiles}
-                        updateListFiles={(filterFiles, updateSelected) => this.setState({filterFiles: filterFiles, selected: updateSelected})}
+                        listFiles={this.state.listFiles}
+                        updateListFiles={(listFiles, filterFiles, updateSelected) => this.setState({
+                            listFiles: listFiles,
+                            filterFiles: filterFiles,
+                            selected: updateSelected
+                        })}
                         filterByMember={members => {this.filterMembers = members; this.filter()}}
                         filterByChannel={channels => {this.filterChannels = channels; this.filter()}}
                         filterByName={name => {this.filterName = name; this.filter()}}
